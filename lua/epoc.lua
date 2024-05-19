@@ -68,12 +68,11 @@ M.popup = function(content)
   -- Calculate popup size
   local width = vim.fn.strdisplaywidth(content)
   local height = #vim.split(content, "\n")
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local row, col = unpack(vim.api.nvim_win_get_position(0))
   -- Calculate window options
   local opts = {
     relative = "win",
-    row = row,
-    col = (col + width / 2) - 3,
+    bufpos = { row, (col + width / 2) - 3 },
     width = width,
     height = height,
     style = "minimal",
