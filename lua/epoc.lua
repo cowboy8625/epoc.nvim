@@ -63,37 +63,29 @@ end
 
 ---@param content string
 M.popup = function(content)
-  -- Create a new scratch buffer for the popup content
   M.popup_buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(M.popup_buf, 0, -1, false, vim.split(content, "\n"))
 
-  -- Calculate popup size
   local width = vim.fn.strdisplaywidth(content)
   local height = #vim.split(content, "\n")
-  local row, col = unpack(vim.api.nvim_win_get_position(0))
-  -- Calculate window options
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local opts = {
     relative = "win",
-    bufpos = { row, (col + width / 2) - 3 },
+    bufpos = { row - 1, col - 1 },
     width = width,
     height = height,
     style = "minimal",
     border = "rounded",
   }
 
-  -- Create the popup window
   M.popup_win = vim.api.nvim_open_win(M.popup_buf, false, opts)
-
-  -- Set autocmd to close popup on any key press
   vim.api.nvim_command("autocmd CursorMoved,CursorMovedI * ++once lua require('epoc').close_popup()")
 end
 
 M.close_popup = function()
-  -- Close the popup window
   if M.popup_win ~= nil and vim.api.nvim_win_is_valid(M.popup_win) then
     vim.api.nvim_win_close(M.popup_win, true)
   end
-  -- Close the popup buffer
   if M.popup_buf ~= nil and vim.api.nvim_buf_is_valid(M.popup_buf) then
     vim.api.nvim_buf_delete(M.popup_buf, { force = true })
   end
