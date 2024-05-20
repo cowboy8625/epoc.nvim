@@ -7,10 +7,11 @@ local config = {
 local M = {}
 M.popup_win = nil
 M.popup_buf = nil
+M.config = {}
 
 ---@param args Config?
 M.setup = function(args)
-  M.config = vim.tbl_deep_extend("force", M.config, args or {})
+  M.config = vim.tbl_deep_extend("force", M.config, args or config)
 end
 
 ---@return number?

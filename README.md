@@ -6,7 +6,7 @@
 {
   'cowboy8625/epoc.nvim',
   config = function()
-    require('epoc') {
+    require('epoc').setup {
       date_format = "%m/%d/%Y %H:%M %p", -- default
     }
   end
