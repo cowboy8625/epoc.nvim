@@ -1,6 +1,6 @@
 ---@class Config
 local config = {
-  opt = {},
+  date_format = "%m/%d/%Y %H:%M %p",
 }
 
 ---@class Epoc
@@ -13,6 +13,7 @@ M.setup = function(args)
   M.config = vim.tbl_deep_extend("force", M.config, args or {})
 end
 
+---@return number?
 M.get_number_under_cursor = function()
   local line = vim.fn.getline(".")
   local col = vim.fn.col(".")
@@ -39,7 +40,7 @@ M.convert_epoch_time_under_cursor_into_clipboard = function()
     print("No number found under cursor")
     return nil
   end
-  local result = tostring(os.date("%m/%d/%Y %H:%M %p", num))
+  local result = tostring(os.date(M.config.date_format, num))
   vim.api.nvim_call_function("setreg", { '+"', result })
   return result
 end
@@ -87,9 +88,11 @@ M.popup = function(content)
 end
 
 M.close_popup = function()
+  -- Close the popup window
   if M.popup_win ~= nil and vim.api.nvim_win_is_valid(M.popup_win) then
     vim.api.nvim_win_close(M.popup_win, true)
   end
+  -- Close the popup buffer
   if M.popup_buf ~= nil and vim.api.nvim_buf_is_valid(M.popup_buf) then
     vim.api.nvim_buf_delete(M.popup_buf, { force = true })
   end

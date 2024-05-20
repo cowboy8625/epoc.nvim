@@ -15,9 +15,16 @@ SETUP                      *epoc-docs-setup*
 
 LAZY
 
-`{ 'cowboy8625/epoc.nvim' }`
-
-
+>lua
+{
+  'cowboy8625/epoc.nvim',
+  config = function()
+    require('epoc') {
+      date_format = "%m/%d/%Y %H:%M %p", -- default
+    }
+  end
+}
+<
 
 USING IT                   *epoc-docs-using-it*
 
@@ -26,9 +33,9 @@ USING IT                   *epoc-docs-using-it*
 
 COMMANDS                   *epoc-docs-commands*
 
-`EpochTimeConvertToClipboard`
-`EpochTimeCurrentToClipboard`
-`EpochTimeConvertAndPopup`
+:EpochTimeConvertToClipboard
+:EpochTimeCurrentToClipboard
+:EpochTimeConvertAndPopup
 
 
 

@@ -3,7 +3,14 @@
 #### Lazy
 
 ```lua
-{ 'cowboy8625/epoc.nvim' },
+{
+  'cowboy8625/epoc.nvim',
+  config = function()
+    require('epoc') {
+      date_format = "%m/%d/%Y %H:%M %p", -- default
+    }
+  end
+},
 ```
 
 #### Commands
