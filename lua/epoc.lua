@@ -16,6 +16,9 @@ end
 
 ---@return number?
 M.get_number_under_cursor = function()
+  if M.config.date_format == nil then
+    M.setup()
+  end
   local line = vim.fn.getline(".")
   local col = vim.fn.col(".")
   local start_col = col
@@ -41,7 +44,7 @@ M.convert_epoch_time_under_cursor_into_clipboard = function()
     print("No number found under cursor")
     return nil
   end
-  local result = tostring(os.date(M.config.date_format, num))
+  local result = M.convert(num)
   vim.api.nvim_call_function("setreg", { '+"', result })
   return result
 end
@@ -89,6 +92,15 @@ M.close_popup = function()
   if M.popup_buf ~= nil and vim.api.nvim_buf_is_valid(M.popup_buf) then
     vim.api.nvim_buf_delete(M.popup_buf, { force = true })
   end
+end
+
+---@param num number
+---@return string
+M.convert = function(num)
+  if M.config.date_format == nil then
+    M.setup()
+  end
+  return tostring(os.date(M.config.date_format, num))
 end
 
 return M
