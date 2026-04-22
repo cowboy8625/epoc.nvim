@@ -19,3 +19,8 @@
 - `EpochTimeCurrentToClipboard` takes the current time and turns it into a epoch time
 - `EpochTimeConvertAndPopup` same as `EpochTimeConvertToClipboard` but opens a popup with the converted time
 <br>![image](https://github.com/cowboy8625/epoc.nvim/assets/43012445/70699986-5b7e-4f22-9b95-9d29eb2abc69)
+
+**Testing**
+```shell
+$ nvim --headless -u tests/minimal_init.lua   -c "PlenaryBustedDirectory tests { minimal_init = 'tests/minimal_init.lua', verbose = true }"
+```
