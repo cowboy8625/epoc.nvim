@@ -42,7 +42,7 @@ M.convert_epoch_time_under_cursor_into_clipboard = function()
         print("No number found under cursor")
         return nil
     end
-    local result = tostring(os.date(M.config.date_format, num))
+    local result = M.convert(num)
     vim.api.nvim_call_function("setreg", { '+"', result })
     return result
 end
