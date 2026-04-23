@@ -8,6 +8,12 @@ describe("epoc.nvim", function()
     })
   end)
 
+  it("convert number to date", function()
+    local result = epoc.convert(1672531200)
+
+    assert.are.same("2022-12-31 18:00:00", result)
+  end)
+
   describe("get_number_under_cursor", function()
     it("extracts number under cursor", function()
       vim.api.nvim_buf_set_lines(0, 0, -1, false, { "foo 1672531200 bar" })
